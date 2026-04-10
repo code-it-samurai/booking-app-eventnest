@@ -148,4 +148,26 @@ order4 = Order.create!(user: attendee1, event: tech_conf, status: "cancelled", t
 OrderItem.create!(order: order4, ticket_tier: conf_standard, quantity: 1, unit_price: 2499.00)
 Payment.create!(order: order4, amount: 2499.00, status: "refunded")
 
-puts "Seeded: #{User.count} users, #{Event.count} events, #{TicketTier.count} tiers, #{Order.count} orders"
+# Bookmarks — attendees wishlisting events they're interested in
+# Ananya bookmarks the music fest (she already has tickets) and the workshop
+Bookmark.create!(user: attendee1, event: music_fest)
+puts "  Bookmark: #{attendee1.name} -> #{music_fest.title}"
+
+Bookmark.create!(user: attendee1, event: workshop)
+puts "  Bookmark: #{attendee1.name} -> #{workshop.title}"
+
+# Vikram bookmarks the tech conference (he already has tickets) and the music fest
+Bookmark.create!(user: attendee2, event: tech_conf)
+puts "  Bookmark: #{attendee2.name} -> #{tech_conf.title}"
+
+Bookmark.create!(user: attendee2, event: music_fest)
+puts "  Bookmark: #{attendee2.name} -> #{music_fest.title}"
+
+# Sneha bookmarks the workshop (she has a pending order) and the tech conference
+Bookmark.create!(user: attendee3, event: workshop)
+puts "  Bookmark: #{attendee3.name} -> #{workshop.title}"
+
+Bookmark.create!(user: attendee3, event: tech_conf)
+puts "  Bookmark: #{attendee3.name} -> #{tech_conf.title}"
+
+puts "Seeded: #{User.count} users, #{Event.count} events, #{TicketTier.count} tiers, #{Order.count} orders, #{Bookmark.count} bookmarks"
