@@ -84,4 +84,9 @@ FactoryBot.define do
     status { "pending" }
     provider { "stripe" }
   end
+
+  factory :bookmark do
+    association :user
+    association :event
+  end
 end
