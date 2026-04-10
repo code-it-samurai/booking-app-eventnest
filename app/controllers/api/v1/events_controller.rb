@@ -7,7 +7,8 @@ module Api
         events = Event.published.upcoming
 
         if params[:search].present?
-          events = events.where("title LIKE '%#{params[:search]}%' OR description LIKE '%#{params[:search]}%'")
+          search_term = "%#{ActiveRecord::Base.sanitize_sql_like(params[:search])}%"
+          events = events.where("title LIKE ? OR description LIKE ?", search_term, search_term)
         end
 
         if params[:category].present?
